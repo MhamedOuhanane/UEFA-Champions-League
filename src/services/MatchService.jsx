@@ -3,11 +3,16 @@ export const fetchMatch = async () => {
     const data = await responce.json();
 
     if (!responce.ok) {
-        return {
-            'error': data?.error ?? data?.message,
-            'match': data ?? null,
-        }
+        throw new Error(data?.error ?? data?.message);
     }
+    
+    const filteredMatches = data.events.filter(
+        event =>
+          event.tournament?.name === "UEFA Champions League, Knockout Phase" &&
+          event.status?.type === "finished"
+      );
 
-    return data;
+    console.log(filteredMatches);
+
+    return filteredMatches;
 }
