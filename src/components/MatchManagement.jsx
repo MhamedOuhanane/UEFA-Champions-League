@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { fetchMatch } from "../services/MatchService";
 import Swal from "sweetalert2";
+import usePaginate from "../stores/usePaginate";
 
 const MatchManagement = () => {
-    const { page, }
+    const { page, setPaginate} = usePaginate()
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     
@@ -13,15 +14,7 @@ const MatchManagement = () => {
             setIsLoading(true);
             try {
                 const matchData = await fetchMatch(page);
-                setMatchs(matchData);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Récuperation des Matchs',
-                    text: matchData?.message || 'La récupération des matchs a réussi',
-                    timer: 1200,
-                    timerProgressBar: true,
-                });
-    
+                setMatchs(matchData);    
             } catch (error) {
                 Swal.fire({
                     icon: 'error',
@@ -75,8 +68,8 @@ const MatchManagement = () => {
                             ))}
                         </div>
                         <div className="flex justify-end self-end space-x-4 mt-4">
-                            <span className="text-2xl">⬅️</span>
-                            <span className="text-2xl">➡️</span>
+                            <span onClick={() => (page > 1) && setPaginate(page - 1)} className="text-2xl">⬅️</span>
+                            <span onClick={() => (page < 2) && setPaginate(page + 1)} className="text-2xl">➡️</span>
                         </div>
                     </>
                 ) : (

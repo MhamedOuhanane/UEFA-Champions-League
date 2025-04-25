@@ -28,7 +28,7 @@ export const fetchMatch = async (pageMatch = 1) => {
     }));
 
     const paginateMatchs = formattedMatches.slice((pageMatch - 1) * 2, pageMatch     * 2);
-    console.log(paginateMatchs);
+    // console.log(paginateMatchs);
     
 
     return paginateMatchs;
