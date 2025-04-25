@@ -34,20 +34,18 @@ const MatchManagement = () => {
                     }
                 });
     
-            } finally {
-                setIsLoading(false)
             }
-            
+            setIsLoading(false);
         }
         getMatchs();        
-    }, [matchs]);
+    }, []);
 
     return (
         <div className="relative flex items-center justify-center w-[65%] h-[60%] rounded-sm bg-cover bg-center">
            
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1e3a8a] to-[#000000] opacity-70 rounded-lg"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1e3a8a] to-[#05052f] opacity-70 rounded-lg"></div>
 
-            <div className="relative z-10 w-full h-full p-6 overflow-y-auto">
+            <div className="relative z-10 w-full h-full p-6 overflow-y-auto flex flex-col justify-center">
                 {isLoading ? (
                     <div className="flex items-center justify-center h-full">
                         <div className="w-12 h-12 border-4 border-t-transparent border-cyan-400 rounded-full animate-spin"></div>
@@ -57,32 +55,19 @@ const MatchManagement = () => {
                         {matchs.map((match, index) => (
                             <div
                                 key={index}
-                                className="flex items-center justify-between p-4 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-all duration-300"
+                                className="grid grid-cols-3 items-center p-4 bg-none bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-all duration-300 border-b-2 border-gray-300"
                             >
-                                {/* Team 1 */}
-                                <div className="flex items-center space-x-3">
-                                    <img
-                                        src={match.logo1}
-                                        alt={`${match.team1} logo`}
-                                        className="w-10 h-10"
-                                    />
-                                    <span className="text-white font-bold text-lg">{match.team1}</span>
+                                <div className="flex space-x-3 justify-center">
+                                    <span className="text-white font-medium text-lg">{match.team1}</span>
                                 </div>
 
-                                {/* Match Details */}
-                                <div className="text-center">
-                                    <p className="text-cyan-400 font-semibold">{match.time}</p>
-                                    <p className="text-white text-sm">{match.date}</p>
+                                <div className="text-center space-y-1">
+                                    <p className="text-cyan-400 font-semibold">{match.teamCurrent1} - {match.teamCurrent2}</p>
+                                    <p className="text-[#c9c9c9ea] text-sm">{match.date}</p>
                                 </div>
 
-                                {/* Team 2 */}
-                                <div className="flex items-center space-x-3">
-                                    <span className="text-white font-bold text-lg">{match.team2}</span>
-                                    <img
-                                        src={match.logo2}
-                                        alt={`${match.team2} logo`}
-                                        className="w-10 h-10"
-                                    />
+                                <div className="flex space-x-3 justify-center">
+                                    <span className="text-white font-medium text-lg">{match.team2}</span>
                                 </div>
                             </div>
                         ))}
