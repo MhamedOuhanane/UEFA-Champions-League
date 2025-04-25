@@ -1,4 +1,4 @@
-export const fetchMatch = async (pageMatch = 2) => {
+export const fetchMatch = async (pageMatch = 1) => {
     const responce = await fetch("https://api.sofascore.com/api/v1/sport/football/scheduled-events/2025-04-16");
     const data = await responce.json();
 
@@ -11,7 +11,6 @@ export const fetchMatch = async (pageMatch = 2) => {
             event.tournament?.name === "UEFA Champions League, Knockout Phase" &&
             event.status?.type === "finished"
     );
-
 
     const formattedMatches = filteredMatches.map(match => ({
         team1: match.homeTeam?.name,
@@ -27,8 +26,10 @@ export const fetchMatch = async (pageMatch = 2) => {
             day: "numeric"
         }),
     }));
-    console.log(formattedMatches);
+
+    const paginateMatchs = formattedMatches.slice((pageMatch - 1) * 2, pageMatch     * 2);
+    console.log(paginateMatchs);
     
 
-    return formattedMatches;
+    return paginateMatchs;
 }
